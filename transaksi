@@ -1,0 +1,392 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
+namespace kasir_restoran_adi
+{
+    public partial class bayarcustom : UserControl
+    {
+        string idmenu, idp;
+        int hasil, jpelanggan, total, jumlahnya, id_uji;
+
+        double br;
+        double totalakhir, pjk, k;
+
+        dashboard halaman;
+        public MySqlCommand cmd;
+        public bayarcustom(dashboard h)
+        {
+            InitializeComponent();
+            halaman = h;
+        }
+
+        private void bersih()
+        {
+            txtharga.Enabled = false;
+            txtjumlah.Enabled = false;
+            txtsubtotal.Enabled = false;
+
+            btnsimpan.Visible = false;
+            btndelete.Visible = false;
+
+            txttotal.Enabled = false;
+
+            txtharga.Text = "0";
+            txtjumlah.Value = 0;
+            hasil = 0;
+            txtsubtotal.Text = "0";
+        }
+
+        private void totalan()
+        {
+            try
+            {
+                koneksi.con.Open();
+                cmd = new MySqlCommand("SELECT IFNULL(SUM(subtotal), 0) FROM vpesanan", koneksi.con);
+                total = Convert.ToInt32(cmd.ExecuteScalar());
+                koneksi.con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("gagal cek total " + ex.Message);
+            }
+        }
+
+        private void verfikasipesanan()
+        {
+            try
+            {
+                koneksi.con.Open();
+                cmd = new MySqlCommand("SELECT COUNT(*) FROM transaksi WHERE pelanggan='" + txtnama.Text + "'", koneksi.con);
+                jpelanggan = Convert.ToInt32(cmd.ExecuteScalar());
+                koneksi.con.Close();
+            }catch(Exception ex)
+            {
+                MessageBox.Show("gagal cek nama " + ex.Message);
+            }
+
+            try
+            {
+                koneksi.con.Open();
+                cmd = new MySqlCommand("SELECT IFNULL(SUM(jumlah), 0) FROM pesanan", koneksi.con);
+                jumlahnya = Convert.ToInt32(cmd.ExecuteScalar());
+                koneksi.con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("gagal jumlah " + ex.Message);
+            }
+
+            
+        }
+
+        private void caripajak()
+        {
+            int p = Convert.ToInt32(txtpajak.Value);
+            double k = (double)p / 100;
+            pjk = total * k;
+            totalakhir = total + pjk;
+            txthargapajak.Text = "Rp " + pjk.ToString("N0");
+            txttotal.Text = "Rp " + totalakhir.ToString("N0");
+        }
+
+        private void tampil()
+        {
+            try
+            {
+                koneksi.con.Open();
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT `id_menu`,`nama_jenis`,`nama_menu`,`harga`,`keterangan`,`id_jenis` FROM `vmenu`", koneksi.con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dgnamamenu.DataSource = dt;
+                koneksi.con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("gagal menu " + ex.Message);
+            }
+
+            try
+            {
+                koneksi.con.Open();
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT `nama_jenis`,`nama_menu`,`harga`,`jumlah`,`waktu_pemesanan`,`subtotal`,`id_pesanan` FROM `vpesanan` ORDER BY waktu_pemesanan ASC", koneksi.con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dgdipesan.DataSource = dt;
+                koneksi.con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("gagal t pesanan " + ex.Message);
+            }
+
+
+        }
+
+        private void cekpesanansama()
+        {
+            try
+            {
+                koneksi.con.Open();
+                cmd = new MySqlCommand("SELECT * FROM pesanan WHERE id_menu='" + idmenu + "'", koneksi.con);
+                id_uji = Convert.ToInt32(cmd.ExecuteScalar());
+                koneksi.con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("gagal cari " + ex.Message);
+                koneksi.con.Close();
+            }
+        }
+
+        private void btnsimpan_Click(object sender, EventArgs e)
+        {
+
+
+           
+
+
+            cekpesanansama();
+            try
+            {
+                string q = "";
+                if (id_uji > 0 && btndelete.Visible == false)
+                {
+                    q = "UPDATE `pesanan` SET `jumlah` = jumlah + '" + txtjumlah.Value + "', subtotal = subtotal + '" + txtsubtotal.Text + "' WHERE `id_menu`='" + idmenu + "'";
+                }
+                else if (txtjumlah.Value == 0)
+                {
+                    MessageBox.Show("Silahkan isi = jumlah");
+                    return;
+                }
+                else if(btndelete.Visible == true)
+                {
+                    q = "UPDATE `pesanan` SET `jumlah` = '" + txtjumlah.Value + "', subtotal ='" + txtsubtotal.Text + "' WHERE `id_menu`='" + idmenu + "'";
+                }
+                else
+                {
+                    q = "INSERT INTO `pesanan`(`id_pesanan`, `id_menu`, `jumlah`, `waktu_pemesanan`, `subtotal`) VALUES ('','" + idmenu + "','" + txtjumlah.Value.ToString() + "', '" + DateTime.Now.ToString("yyyy-MM-dd h:m:s") + "','" + txtsubtotal.Text + "')";
+                }
+                koneksi.con.Open();
+                cmd = new MySqlCommand(q, koneksi.con);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("berhasil dismpan");
+                koneksi.con.Close();
+                
+                tampil();
+                bersih();
+                totalan();
+                caripajak();
+
+                txtjumlah.Enabled = false;
+
+            }catch(Exception ex)
+            {
+                MessageBox.Show("gagal simpan " + ex.Message);
+            }
+        }
+
+        
+
+       
+        private void btnconfirm_Click(object sender, EventArgs e)
+        {
+            verfikasipesanan();
+            string jns = rddine.Checked ? "dine in" : rdtake.Checked ? "take away" : "";
+            if(jns == "" || txtnama.Text == "")
+            {
+                MessageBox.Show("silahkan isi jwnis dan nama");
+                return;
+            }
+            else if(txtbayar.Text == "")
+            {
+                MessageBox.Show("masukkan imputan bayar");
+                return;
+            }
+            else if(br < totalakhir)
+            {
+                MessageBox.Show("maaf uang yang diimputkan tidak mencukupi");
+                return;
+            }
+            else if (jumlahnya == 0)
+            {
+                MessageBox.Show("Silahkan Tambahkan pesanan");
+                return;
+            }
+            string id = "K" + DateTime.Now.ToString("yyMMdd") + new Random().Next(100, 999);
+            string tgl = DateTime.Now.ToString("yyyy-MM-dd H:m:s");
+            try
+            {
+                
+                koneksi.con.Open();
+                cmd = new MySqlCommand("SELECT COUNT(*) FROM `vpesanan`", koneksi.con);
+                int b = Convert.ToInt32(cmd.ExecuteScalar());
+                if (jpelanggan > 0)
+                {
+                    MessageBox.Show("nama pelanggan sudah ada");
+                    return;
+                }
+                else if(b == 0)
+                {
+                    MessageBox.Show("Tidak Ada yang dipesan !");
+                    return;
+                }
+                int i = 1;
+
+
+                cmd = new MySqlCommand("INSERT INTO `transaksi` VALUES ('" + id + "','" + tgl + "','" + data_pengguna.id_petugas + "','" + txtnama.Text + "','" + jns + "','" + jumlahnya.ToString() + "','" + totalakhir.ToString() + "','" + pjk.ToString() + "','" + br.ToString() + "', '" + k.ToString() + "', '" + total.ToString() + "')", koneksi.con);
+                cmd.ExecuteNonQuery();
+
+                while (i <= b)
+                {
+                    cmd = new MySqlCommand("SELECT * FROM vpesanan", koneksi.con);
+                    var rd = cmd.ExecuteReader();
+                    if (rd.Read())
+                    {
+                        string idpesanan = rd["id_pesanan"].ToString();
+                        string idmenu = rd["id_menu"].ToString();
+                        string harga = rd["harga"].ToString();
+                        string jpesan = rd["jumlah"].ToString();
+                        string subtotal = rd["subtotal"].ToString();
+                        rd.Close();
+
+                        cmd = new MySqlCommand("INSERT INTO `detail_transaksi`(`id_detailtransaksi`, `id_transaksi`, `id_menu`, `harga`, `jumlah`, `sub_total`) VALUES ('','" + id + "','" + idmenu + "','" + harga + "','" + jpesan + "','" + subtotal + "')", koneksi.con);
+                        cmd.ExecuteNonQuery();
+
+                        cmd = new MySqlCommand("DELETE FROM pesanan WHERE id_pesanan='" + idpesanan + "'", koneksi.con);
+                        cmd.ExecuteNonQuery();
+                    }
+                    i++;
+                }
+                MessageBox.Show("berhasil");
+                koneksi.con.Close();
+                new CETAKstruk(id).Show();
+                halaman.addusercontrol(new bayar(halaman));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("gagal confirm " + ex.Message);
+            }
+        }
+
+        private void dgdipesan_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int b = dgdipesan.CurrentCell.RowIndex;
+            txtharga.Text = dgdipesan.Rows[b].Cells[2].Value.ToString();
+            txtjumlah.Value = Convert.ToInt32(dgdipesan.Rows[b].Cells[3].Value.ToString());
+            idp = dgdipesan.Rows[b].Cells[6].Value.ToString();
+
+            btndelete.Visible = true;
+            btnsimpan.Visible = true;
+            txtjumlah.Enabled = true;
+        }
+
+        private void txtcari_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            try
+            {
+                koneksi.con.Open();
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT `id_menu`,`nama_jenis`,`nama_menu`,`harga`,`keterangan`,`id_jenis` FROM vmenu WHERE `nama_jenis` LIKE '%" + txtcari.Text + "%' OR `nama_menu` LIKE '%" + txtcari.Text + "%'", koneksi.con);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dgnamamenu.DataSource = dt;
+                koneksi.con.Close();
+            }catch(Exception ex)
+            {
+                MessageBox.Show("gagal cari " + ex.Message);
+            }
+        }
+
+        private void txtbayar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8)
+            {
+                e.Handled = true;
+            }
+            else if(txtbayar.Text.Length == 0 && e.KeyChar == '0')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void dgnamamenu_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int b = dgnamamenu.CurrentCell.RowIndex;
+            txtharga.Text = dgnamamenu.Rows[b].Cells[3].Value.ToString();
+            idmenu = dgnamamenu.Rows[b].Cells[0].Value.ToString();
+
+            btnsimpan.Visible = true;
+            btndelete.Visible = false;
+            txtjumlah.Enabled = true;
+        }
+
+        private void txtbayar_TextChanged(object sender, EventArgs e)
+        {
+            if(txtbayar.Text == "")
+            {
+                br = 0;
+            }
+            else
+            {
+                br = int.Parse(txtbayar.Text);
+            }
+
+            k = (double)br - totalakhir;
+            txtkembalian.Text = "Rp " + k.ToString("N0");
+        }
+
+        private void txtpajak_ValueChanged(object sender, EventArgs e)
+        {
+            caripajak();
+        }
+
+        private void txtjumlah_ValueChanged(object sender, EventArgs e)
+        {
+            hasil = int.Parse(txtharga.Text) * Convert.ToInt32(txtjumlah.Value);
+            txtsubtotal.Text = hasil.ToString();
+        }
+
+        private void btndelete_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("yakin dihapus", "warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                try
+                {
+                    koneksi.con.Open();
+                    cmd = new MySqlCommand("DELETE FROM pesanan WHERE id_pesanan='" + idp + "'", koneksi.con);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("berhasil disimpan");
+                    koneksi.con.Close();
+
+                    tampil();
+                    bersih();
+                    totalan();
+                    caripajak();
+                }catch(Exception ex)
+                {
+                    MessageBox.Show("gagal delete " + ex.Message);
+                }
+            }
+        }
+
+        
+
+        private void pesanancostum_Load(object sender, EventArgs e)
+        {
+            txtnama.Enabled = true;
+            txtjumlah.Enabled = false;
+            tampil();
+            totalan();
+            bersih();
+        }
+    }
+}
