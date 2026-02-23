@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{037D8FBB-F887-4A21-A96E-4375BABA90C9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>kasir_adi</RootNamespace>
+    <AssemblyName>kasir_adi</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>D:\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>1156A0418F2660C488C1B95AEE75FD3B9339E5CF</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>kasir_adi_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="Guna.UI2">
+      <HintPath>..\..\bahan v 2017\guna ui\Guna.UI2.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=9.2.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bahan v 2017\mysql\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CETAKmenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CETAKmenu.Designer.cs">
+      <DependentUpon>CETAKmenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CETAKpetugas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CETAKpetugas.Designer.cs">
+      <DependentUpon>CETAKpetugas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CETAKstuk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CETAKstuk.Designer.cs">
+      <DependentUpon>CETAKstuk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CETAKTRA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CETAKTRA.Designer.cs">
+      <DependentUpon>CETAKTRA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dashboard.Designer.cs">
+      <DependentUpon>dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datauser.cs" />
+    <Compile Include="f_informasi.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="f_informasi.Designer.cs">
+      <DependentUpon>f_informasi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="f_jenis.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="f_jenis.Designer.cs">
+      <DependentUpon>f_jenis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="f_konfigurasi.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="f_konfigurasi.Designer.cs">
+      <DependentUpon>f_konfigurasi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="f_laporan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="f_laporan.Designer.cs">
+      <DependentUpon>f_laporan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="f_menu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="f_menu.Designer.cs">
+      <DependentUpon>f_menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="f_transaksi.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="f_transaksi.Designer.cs">
+      <DependentUpon>f_transaksi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login.Designer.cs">
+      <DependentUpon>login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="koneksi.cs" />
+    <Compile Include="f_petugas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="f_petugas.Designer.cs">
+      <DependentUpon>f_petugas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LPmenu.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LPmenu.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LPpenjualan.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LPpenjualan.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LPpetugas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LPpetugas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LPstruk.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LPstruk.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CETAKmenu.resx">
+      <DependentUpon>CETAKmenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CETAKpetugas.resx">
+      <DependentUpon>CETAKpetugas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CETAKstuk.resx">
+      <DependentUpon>CETAKstuk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CETAKTRA.resx">
+      <DependentUpon>CETAKTRA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dashboard.resx">
+      <DependentUpon>dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="f_informasi.resx">
+      <DependentUpon>f_informasi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="f_jenis.resx">
+      <DependentUpon>f_jenis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="f_konfigurasi.resx">
+      <DependentUpon>f_konfigurasi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="f_laporan.resx">
+      <DependentUpon>f_laporan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="f_menu.resx">
+      <DependentUpon>f_menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="f_transaksi.resx">
+      <DependentUpon>f_transaksi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login.resx">
+      <DependentUpon>login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="f_petugas.resx">
+      <DependentUpon>f_petugas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LPmenu.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LPmenu.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LPpenjualan.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LPpenjualan.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LPpetugas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LPpetugas.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LPstruk.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LPstruk.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo aplikasi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,15 @@
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.CETAKmenu.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.CETAKpetugas.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.CETAKstuk.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.CETAKTRA.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.dashboard.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.f_informasi.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.f_jenis.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.f_konfigurasi.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.f_laporan.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.f_menu.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.f_transaksi.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.login.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.f_petugas.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.Properties.Resources.resources
+D:\kasir_adi_adi\kasir_adi\kasir_adi\obj\Release\kasir_adi.csproj.GenerateResource.Cache
